@@ -257,6 +257,4 @@ If you encounter any issues or have questions:
 - Check existing documentation
 - Review closed issues for similar problems
 
----
 
-**Made with ❤️ for transparent and trustworthy e-commerce**
