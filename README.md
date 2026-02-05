@@ -1,17 +1,23 @@
-FAKE-REVIEW-DETECTION-SYSTEM
+# FAKE-REVIEW-DETECTION-SYSTEM
+
 A full-stack machine learning application that detects fake Amazon reviews using advanced NLP techniques and provides explainable AI insights.
-Overview
+
+## Overview
+
 This project combines machine learning, natural language processing, and explainable AI to identify fraudulent Amazon reviews. The system uses multiple ML models including Logistic Regression, SVM, and BERT to analyze review authenticity, while SHAP (SHapley Additive exPlanations) provides transparency into model decisions. The application features a modern React frontend with interactive visualizations and a robust Flask backend API.
-Features
 
-Multi-Model Analysis: Leverages Logistic Regression, SVM, and BERT models for comprehensive review analysis
-Explainable AI: SHAP-based explanations help users understand why a review was flagged as fake or genuine
-Interactive Dashboard: Modern React frontend built with Vite and TailwindCSS
-Probability Visualization: Clear visual representation of prediction confidence scores
-RESTful API: Well-documented endpoints for easy integration
-Real-time Predictions: Fast analysis of Amazon review text
+## Features
 
-Project Structure
+- **Multi-Model Analysis**: Leverages Logistic Regression, SVM, and BERT models for comprehensive review analysis
+- **Explainable AI**: SHAP-based explanations help users understand why a review was flagged as fake or genuine
+- **Interactive Dashboard**: Modern React frontend built with Vite and TailwindCSS
+- **Probability Visualization**: Clear visual representation of prediction confidence scores
+- **RESTful API**: Well-documented endpoints for easy integration
+- **Real-time Predictions**: Fast analysis of Amazon review text
+
+## Project Structure
+
+```
 FAKE-REVIEW-DETECTION-SYSTEM/
 ├── frontend/                 # React frontend application
 │   ├── src/                 # Source files
@@ -31,174 +37,226 @@ FAKE-REVIEW-DETECTION-SYSTEM/
 │   └── ...                  # Training and test data
 ├── LICENSE                  # MIT License
 └── README.md               # This file
-Setup
-Prerequisites
+```
 
-Backend: Python 3.10 or higher
-Frontend: Node.js 18 or higher
-Package Manager: npm or yarn
+## Setup
 
-Backend Setup
+### Prerequisites
 
-Navigate to the backend directory:
+- **Backend**: Python 3.10 or higher
+- **Frontend**: Node.js 18 or higher
+- **Package Manager**: npm or yarn
 
-bash   cd backend/api
+### Backend Setup
 
-Create and activate a virtual environment (recommended):
+1. Navigate to the backend directory:
+   ```bash
+   cd backend/api
+   ```
 
-bash   python -m venv venv
+2. Create and activate a virtual environment (recommended):
+   ```bash
+   python -m venv venv
    source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
 
-Install dependencies:
+3. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-bash   pip install -r requirements.txt
+4. Run the Flask server:
+   ```bash
+   python app.py
+   ```
 
-Run the Flask server:
+   The API will start on `http://localhost:5000` by default.
 
-bash   python app.py
-The API will start on http://localhost:5000 by default.
-Frontend Setup
+### Frontend Setup
 
-Navigate to the frontend directory:
+1. Navigate to the frontend directory:
+   ```bash
+   cd frontend
+   ```
 
-bash   cd frontend
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-Install dependencies:
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
 
-bash   npm install
+   The application will open at `http://localhost:5173` (or another port if 5173 is busy).
 
-Start the development server:
+## Usage
 
-bash   npm run dev
-The application will open at http://localhost:5173 (or another port if 5173 is busy).
-Usage
+1. **Start both servers**: Ensure both the backend Flask API and frontend development server are running.
 
-Start both servers: Ensure both the backend Flask API and frontend development server are running.
-Access the application: Open your browser and navigate to the frontend URL (typically http://localhost:5173).
-Analyze a review:
+2. **Access the application**: Open your browser and navigate to the frontend URL (typically `http://localhost:5173`).
 
-Paste or type an Amazon review into the input field
-Click the "Analyze" button
-View the prediction (Fake/Real) along with probability scores
-Explore SHAP explanations to understand the model's decision
+3. **Analyze a review**:
+   - Paste or type an Amazon review into the input field
+   - Click the "Analyze" button
+   - View the prediction (Fake/Real) along with probability scores
+   - Explore SHAP explanations to understand the model's decision
 
+4. **Interpret results**:
+   - **Prediction**: Shows whether the review is likely fake or genuine
+   - **Probability**: Displays confidence level (0-100%)
+   - **Explanation**: Highlights words and features that influenced the decision
 
-Interpret results:
+## API Endpoints
 
-Prediction: Shows whether the review is likely fake or genuine
-Probability: Displays confidence level (0-100%)
-Explanation: Highlights words and features that influenced the decision
+### POST `/predict`
 
-
-
-API Endpoints
-POST /predict
 Get a fake/real prediction for a given review.
-Request Body:
-json{
+
+**Request Body:**
+```json
+{
   "review_text": "This product is amazing! Highly recommend it!"
 }
-Response:
-json{
+```
+
+**Response:**
+```json
+{
   "prediction": "Real",
   "probability": 0.87,
   "model": "BERT"
 }
-POST /explain
+```
+
+### POST `/explain`
+
 Get SHAP-based explanation for a review prediction.
-Request Body:
-json{
+
+**Request Body:**
+```json
+{
   "review_text": "This product is amazing! Highly recommend it!"
 }
-Response:
-json{
+```
+
+**Response:**
+```json
+{
   "explanation": {
     "feature_importance": [...],
     "shap_values": [...],
     "base_value": 0.5
   }
 }
-POST /visualize
+```
+
+### POST `/visualize`
+
 Get probability visualization data.
-Request Body:
-json{
+
+**Request Body:**
+```json
+{
   "review_text": "This product is amazing! Highly recommend it!"
 }
-Response:
-json{
+```
+
+**Response:**
+```json
+{
   "visualization": {
     "fake_probability": 0.13,
     "real_probability": 0.87,
     "chart_data": [...]
   }
 }
-Model Training
-The model/ directory contains scripts for training and evaluating machine learning models.
-Training a New Model
+```
 
-Navigate to the model directory:
+## Model Training
 
-bash   cd model
+The `model/` directory contains scripts for training and evaluating machine learning models.
 
-Run the training script:
+### Training a New Model
 
-bash   python train_model.py
-Or use the alternative training script:
-bash   python train_model1.py
+1. Navigate to the model directory:
+   ```bash
+   cd model
+   ```
 
-Training outputs:
+2. Run the training script:
+   ```bash
+   python train_model.py
+   ```
 
-Trained model files (saved in model/ directory)
-Performance metrics and evaluation reports
-Model comparison results
+   Or use the alternative training script:
+   ```bash
+   python train_model1.py
+   ```
 
+3. **Training outputs**:
+   - Trained model files (saved in `model/` directory)
+   - Performance metrics and evaluation reports
+   - Model comparison results
 
+### Available Models
 
-Available Models
+- **Logistic Regression**: Fast, interpretable baseline model
+- **SVM (Support Vector Machine)**: Robust classification with kernel tricks
+- **BERT**: State-of-the-art transformer-based language model
 
-Logistic Regression: Fast, interpretable baseline model
-SVM (Support Vector Machine): Robust classification with kernel tricks
-BERT: State-of-the-art transformer-based language model
+## Contributing
 
-Contributing
 Contributions are welcome! Here's how you can help:
 
-Fork the repository
-Create a feature branch:
+1. **Fork the repository**
 
-bash   git checkout -b feature/your-feature-name
+2. **Create a feature branch**:
+   ```bash
+   git checkout -b feature/your-feature-name
+   ```
 
-Make your changes and commit:
+3. **Make your changes** and commit:
+   ```bash
+   git commit -m "Add your meaningful commit message"
+   ```
 
-bash   git commit -m "Add your meaningful commit message"
+4. **Push to your branch**:
+   ```bash
+   git push origin feature/your-feature-name
+   ```
 
-Push to your branch:
+5. **Open a Pull Request**: Provide a clear description of your changes
 
-bash   git push origin feature/your-feature-name
+### Guidelines
 
-Open a Pull Request: Provide a clear description of your changes
+- Open an issue first for major changes to discuss your ideas
+- Follow existing code style and conventions
+- Add tests for new features when applicable
+- Update documentation as needed
+- Ensure all tests pass before submitting PR
 
-Guidelines
+## License
 
-Open an issue first for major changes to discuss your ideas
-Follow existing code style and conventions
-Add tests for new features when applicable
-Update documentation as needed
-Ensure all tests pass before submitting PR
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
-License
-This project is licensed under the MIT License. See the LICENSE file for details.
+---
 
-Acknowledgments
+## Acknowledgments
 
-Dataset sourced from Amazon review datasets
-Built with Flask, React, TailwindCSS, and Vite
-SHAP library for explainable AI
-BERT model from Hugging Face Transformers
+- Dataset sourced from Amazon review datasets
+- Built with Flask, React, TailwindCSS, and Vite
+- SHAP library for explainable AI
+- BERT model from Hugging Face Transformers
 
-Support
+## Support
+
 If you encounter any issues or have questions:
+- Open an issue on GitHub
+- Check existing documentation
+- Review closed issues for similar problems
 
-Open an issue on GitHub
-Check existing documentation
-Review closed issues for similar problems
+---
+
+**Made with ❤️ for transparent and trustworthy e-commerce**
